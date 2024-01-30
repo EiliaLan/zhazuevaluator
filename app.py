@@ -10,21 +10,30 @@ from tensorflow.keras.preprocessing import image
 import requests
 from tqdm import tqdm
 
-#@st.cache_resource
+@st.cache(allow_output_mutation=True)
+def download_and_load_model(url, model_path):
+    response = requests.get(url, stream=True)
+    total_size = int(response.headers.get('content-length', 0))
+    block_size = 1024 
+    t=tqdm(total=total_size, unit='iB', unit_scale=True)
+    with open(model_path, 'wb') as f:
+        for data in response.iter_content(block_size):
+            t.update(len(data))
+            f.write(data)
+    t.close()
 
+    if total_size != 0 and t.n != total_size:
+        print("ERROR, something went wrong")
+
+    model = load_model(model_path)
+    return model
+
+# Use the cached function to download and load the model
 url = "https://huggingface.co/spaces/Ailyth/zhacritic/resolve/main/model/zha2024_6.h5"
-response = requests.get(url, stream=True)
-total_size = int(response.headers.get('content-length', 0))
-block_size = 1024 
-t=tqdm(total=total_size, unit='iB', unit_scale=True)
-with open("model/zha2024_6.h5", 'wb') as f:
-    for data in response.iter_content(block_size):
-        t.update(len(data))
-        f.write(data)
-t.close()
+model_path = "model/zha2024_6.h5"
 
 UTC_8 = pytz.timezone('Asia/Shanghai')
-my_model = load_model("model/zha2024_6.h5")
+my_model = download_and_load_model(url, model_path)
 target_size = (300, 300)
 class_labels = {0: '炭黑组', 1: '正常发挥', 2: '炫彩组', 3: '糊糊组', 4: '炸组日常', 5: '凡尔赛',6: '非食物'}
 predicted_class=''

@@ -10,7 +10,7 @@ from tensorflow.keras.preprocessing import image
 import requests
 from tqdm import tqdm
 
-@st.cache_resource
+#@st.cache_resource
 
 url = "https://huggingface.co/spaces/Ailyth/zhacritic/resolve/main/model/zha2024_6.h5"
 response = requests.get(url, stream=True)

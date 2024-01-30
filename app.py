@@ -2,12 +2,12 @@ import PIL.Image
 import numpy as np
 import streamlit as st
 from datetime import datetime
-import os,re,pytz,time,requests
+import os,re,pytz,time
 import google.generativeai as genai
 import streamlit.components.v1 as components
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
-
+import requests
 UTC_8 = pytz.timezone('Asia/Shanghai')
 #Load the model 
 url = "https://huggingface.co/spaces/Ailyth/zhacritic/resolve/main/model/zha2024_6.h5"

@@ -11,7 +11,7 @@ import requests
 from tqdm import tqdm
 
 @st.cache_resource
-# Download the model from 🤗
+# Download the model from hf
 url = "https://huggingface.co/spaces/Ailyth/zhacritic/resolve/main/model/zha2024_6.h5"
 response = requests.get(url, stream=True)
 total_size = int(response.headers.get('content-length', 0))
@@ -29,7 +29,7 @@ target_size = (300, 300)
 class_labels = {0: '炭黑组', 1: '正常发挥', 2: '炫彩组', 3: '糊糊组', 4: '炸组日常', 5: '凡尔赛',6: '非食物'}
 predicted_class=''
 
-#🤗Set up the Gemini model and API key
+#Set up the Gemini model and API key
 #https://cloud.google.com/vertex-ai/docs/generative-ai/model-reference/gemini?hl=zh-cn
 MY_KEY= st.secrets["MY_API"]
 genai.configure(api_key=MY_KEY)

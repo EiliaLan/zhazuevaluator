@@ -11,7 +11,7 @@ import requests
 from tqdm import tqdm
 
 @st.cache_resource
-# Download the model from hf
+
 url = "https://huggingface.co/spaces/Ailyth/zhacritic/resolve/main/model/zha2024_6.h5"
 response = requests.get(url, stream=True)
 total_size = int(response.headers.get('content-length', 0))

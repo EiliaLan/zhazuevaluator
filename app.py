@@ -8,17 +8,27 @@ import streamlit.components.v1 as components
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
 import requests
-UTC_8 = pytz.timezone('Asia/Shanghai')
-#Load the model 
+from tqdm import tqdm
+
+# Download the model from 🤗
 url = "https://huggingface.co/spaces/Ailyth/zhacritic/resolve/main/model/zha2024_6.h5"
-resp = requests.get(url)
+response = requests.get(url, stream=True)
+total_size = int(response.headers.get('content-length', 0))
+block_size = 1024 
+t=tqdm(total=total_size, unit='iB', unit_scale=True)
 with open("model/zha2024_6.h5", 'wb') as f:
-    f.write(resp.content)
+    for data in response.iter_content(block_size):
+        t.update(len(data))
+        f.write(data)
+t.close()
+
+UTC_8 = pytz.timezone('Asia/Shanghai')
 my_model = load_model("model/zha2024_6.h5")
 target_size = (300, 300)
 class_labels = {0: '炭黑组', 1: '正常发挥', 2: '炫彩组', 3: '糊糊组', 4: '炸组日常', 5: '凡尔赛',6: '非食物'}
 predicted_class=''
-#Set up the Gemini model and API key
+
+#🤗Set up the Gemini model and API key
 #https://cloud.google.com/vertex-ai/docs/generative-ai/model-reference/gemini?hl=zh-cn
 MY_KEY= st.secrets["MY_API"]
 genai.configure(api_key=MY_KEY)

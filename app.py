@@ -131,7 +131,7 @@ def score_desc(score):
 
 def review_waiting(_class, critic_name):
     if _class == '非食物':
-        return  '图里面好像没有食物吧❓'
+        return  '图里面好像没有食物吧❓点评可能会和图片无关'
     elif critic_name == 'SavorBalancer':
         return '🍴品尝中，正在构思点评'
     elif critic_name == 'SpicyCritique':
@@ -163,7 +163,7 @@ def review():
                 st.write(final_response)
                 st.button("再次点评", key="1")
             print(f"{datetime.now(UTC_8).strftime('%m-%d %H:%M:%S')}--Complete\n💣💣💣")
-            info('#edfde2','#78817a','🆗点评完毕，内容有AI生成，仅供娱乐',55)
+            info('#edfde2','#78817a','🆗点评完毕，内容由AI生成，仅供娱乐',55)
           
 def info(bg_color,font_color,text,height):
     html=f'''<html><style>

@@ -1,8 +1,8 @@
 import PIL.Image
 import numpy as np
-import os,re,pytz,time
 import streamlit as st
 from datetime import datetime
+import os,re,pytz,time,requests
 import google.generativeai as genai
 import streamlit.components.v1 as components
 from tensorflow.keras.models import load_model

@@ -10,7 +10,10 @@ from tensorflow.keras.preprocessing import image
 
 UTC_8 = pytz.timezone('Asia/Shanghai')
 #Load the model 
-!wget -O model/zha2024_6.h5 https://huggingface.co/spaces/Ailyth/zhacritic/resolve/main/model/zha2024_6.h5
+url = "https://huggingface.co/spaces/Ailyth/zhacritic/resolve/main/model/zha2024_6.h5"
+response = requests.get(url)
+with open("model/zha2024_6.h5", 'wb') as f:
+    f.write(response.content)
 my_model = load_model("model/zha2024_6.h5")
 target_size = (300, 300)
 class_labels = {0: '炭黑组', 1: '正常发挥', 2: '炫彩组', 3: '糊糊组', 4: '炸组日常', 5: '凡尔赛',6: '非食物'}

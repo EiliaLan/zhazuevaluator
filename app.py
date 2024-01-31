@@ -10,7 +10,7 @@ from tensorflow.keras.preprocessing import image
 import requests
 from tqdm import tqdm
 
-@st.cache(allow_output_mutation=True)
+@st.cache_resource
 def download_and_load_model(url, model_path):
     response = requests.get(url, stream=True)
     total_size = int(response.headers.get('content-length', 0))
@@ -76,6 +76,7 @@ safety_settings = [
 ]
 
 #fuctions
+@st.cache_data
 def preprocess_image(img_path):
     img = image.load_img(img_path, target_size=target_size)
     img_array = image.img_to_array(img)

@@ -218,7 +218,7 @@ div[data-testid="stFileDropzoneInstructions"]>div>span::after {{
 </style>'''
 st.markdown(css,unsafe_allow_html=True)
 
-img_raw_path = st.file_uploader("", type=['png', 'jpg', 'jpeg','webp'])
+img_raw_path = st.file_uploader("上传图片", type=['png', 'jpg', 'jpeg', 'webp'], label_visibility="collapsed")
 
 col1, col2 = st.columns(2)
 my_image = ""

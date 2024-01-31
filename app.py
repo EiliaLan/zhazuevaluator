@@ -159,6 +159,8 @@ def review():
         with st.spinner(review_waiting(predicted_class, critic_name)):
             print(f"{datetime.now(UTC_8).strftime('%m-%d %H:%M:%S')}--Start Reviewing")
             final_response = gemini_bot(default_prompt, img_raw_path, predicted_class)
+            if final_response
+                print(final_response)
             with st.chat_message(critic_name, avatar=avatar):
                 st.write(final_response)
                 st.button("再次点评", key="1")
